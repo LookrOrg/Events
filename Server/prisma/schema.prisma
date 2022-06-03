@@ -8,7 +8,7 @@ datasource db {
 }
 
 model users {
-  handle       String   @id @default(uuid()) @db.Uuid
+  handle       String   @id @db.Text
   name         String   @db.Text
   surname      String   @db.Text
   email        String   @db.Text
@@ -17,13 +17,14 @@ model users {
   creationDate DateTime @default(now()) @db.Date
   image        String   @db.Text
   rating       Int      @default(0) @db.SmallInt
+  ip           String   @default("0.0.0.0") @db.Inet
 
   //! relation field
-  rfEventsCreated events[]  @relation("CreatorUserHandle")
-  rfRequestJoin   requests[] @relation("JoinRequest")
-  rfChatFirstUser chats[] @relation("rfHFirstUser")
-  rfChatSecondtUser chats[] @relation("rfHSecondUser")
-  rfMessage messages[] @relation("rfMessageUserHandle")
+  rfEventsCreated   events[]   @relation("CreatorUserHandle")
+  rfRequestJoin     requests[] @relation("JoinRequest")
+  rfChatFirstUser   chats[]    @relation("rfHFirstUser")
+  rfChatSecondtUser chats[]    @relation("rfHSecondUser")
+  rfMessage         messages[] @relation("rfMessageUserHandle")
 }
 
 model categories {
@@ -35,7 +36,7 @@ model categories {
 }
 
 model events {
-  id                String   @id  @db.Uuid@default(uuid())
+  id                String   @id @default(uuid()) @db.Uuid
   title             String   @db.Text
   description       String   @db.Text
   date              DateTime
@@ -43,18 +44,18 @@ model events {
   phone             String   @db.VarChar(10)
   latitude          String   @db.Text
   longitude         String   @db.Text
-  creatorUserHandle String   @db.Uuid
+  creatorUserHandle String   @db.Text
   category          String   @db.Text
 
   //! relation field
   rfCreatorUserHandle users      @relation("CreatorUserHandle", fields: [creatorUserHandle], references: [handle])
   rfCategory          categories @relation("Category", fields: [category], references: [name])
-  rfRequest           requests[]  @relation("rfEventId")
+  rfRequest           requests[] @relation("rfEventId")
 }
 
 model requests {
   id         String   @id @default(uuid()) @db.Uuid
-  userHandle String   @db.Uuid
+  userHandle String   @db.Text
   eventId    String   @db.Uuid
   accepted   Boolean?
   date       DateTime
@@ -65,36 +66,36 @@ model requests {
 }
 
 model chats {
-  id String @id @db.Uuid @default(uuid())
-  handleFirstUser String @db.Uuid
-  handleSecondtUser String @db.Uuid
+  id                String @id @default(uuid()) @db.Uuid
+  handleFirstUser   String @db.Text
+  handleSecondtUser String @db.Text
 
   //! relation field
-  rfHFirstUser users @relation("rfHFirstUser", fields: [handleFirstUser], references: [handle])
-  rfHSecondUser users @relation("rfHSecondUser", fields: [handleSecondtUser], references: [handle])
+  rfHFirstUser   users      @relation("rfHFirstUser", fields: [handleFirstUser], references: [handle])
+  rfHSecondUser  users      @relation("rfHSecondUser", fields: [handleSecondtUser], references: [handle])
   rfChatMessages messages[] @relation("rfChatId")
 }
 
 model groups {
-  id String @db.Uuid @id @default(uuid())
-  name String @db.Text
+  id          String @id @default(uuid()) @db.Uuid
+  name        String @db.Text
   description String @db.Text
-  image String @db.Text @default("https://google.it")
+  image       String @default("https://google.it") @db.Text
 
   //! relational field
   rfGroupMessages messages[] @relation("rfGroupid")
 }
 
 model messages {
-  id String @id @db.Uuid @default(uuid())
-  userHandle String @db.Uuid
-  chatId String? @db.Uuid
-  groupId String? @db.Uuid
-  text String @db.Text
-  date DateTime
+  id         String   @id @default(uuid()) @db.Uuid
+  userHandle String   @db.Text
+  chatId     String?  @db.Uuid
+  groupId    String?  @db.Uuid
+  text       String   @db.Text
+  date       DateTime
 
   //! relational field
-  rfUserHandle users @relation("rfMessageUserHandle", fields: [userHandle], references: [handle])
-  rfChatId chats? @relation("rfChatId", fields: [chatId], references: [id])
-  rfGroupId groups? @relation("rfGroupid", fields: [groupId], references: [id])
+  rfUserHandle users   @relation("rfMessageUserHandle", fields: [userHandle], references: [handle])
+  rfChatId     chats?  @relation("rfChatId", fields: [chatId], references: [id])
+  rfGroupId    groups? @relation("rfGroupid", fields: [groupId], references: [id])
 }
