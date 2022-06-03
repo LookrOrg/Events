@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model categories {
+  name   String   @id
+  color  String   @db.VarChar(7)
+  events events[]
+}
+
+model chats {
+  id                                  String   @id @db.Uuid
+  creationDate                        DateTime @default(now())
+  handleFirstUser                     String   @unique
+  handleSecondUser                    String   @unique
+  users_chats_handleFirstUserTousers  users    @relation("chats_handleFirstUserTousers", fields: [handleFirstUser], references: [handle], onDelete: Cascade)
+  users_chats_handleSecondUserTousers users    @relation("chats_handleSecondUserTousers", fields: [handleSecondUser], references: [handle], onDelete: Cascade)
+}
+
+model events {
+  id                                    String     @id @db.Uuid
+  creatorUserHandle                     String
+  title                                 String
+  description                           String
+  date                                  DateTime
+  duration                              Int
+  phone                                 String     @db.VarChar(10)
+  latitude                              Float
+  longitude                             Float
+  category                              String
+  categories                            categories @relation(fields: [category], references: [name])
+  users_events_creatorUserHandleTousers users      @relation("events_creatorUserHandleTousers", fields: [creatorUserHandle], references: [handle], onDelete: Cascade)
+  users_eventsTousers                   users[]
+}
+
+model groups {
+  id          String  @id @db.Uuid
+  name        String
+  description String
+  users       users[] @relation("inGroup")
+}
+
+model messages {
+  id                                  String @id @db.Uuid
+  text                                String
+  handleSender                        String @unique
+  handleReciver                       String @unique
+  users_messages_handleReciverTousers users  @relation("messages_handleReciverTousers", fields: [handleReciver], references: [handle], onDelete: Cascade)
+  users_messages_handleSenderTousers  users  @relation("messages_handleSenderTousers", fields: [handleSender], references: [handle], onDelete: Cascade)
+}
+
+model users {
+  handle                                 String    @id
+  name                                   String
+  surname                                String
+  email                                  String    @unique
+  password                               String
+  phone                                  String    @unique @db.VarChar(10)
+  creationDate                           DateTime  @default(now()) @db.Date
+  image                                  String    @default("https://google.it")
+  rating                                 Int       @default(0) @db.SmallInt
+  chats_chats_handleFirstUserTousers     chats?    @relation("chats_handleFirstUserTousers")
+  chats_chats_handleSecondUserTousers    chats?    @relation("chats_handleSecondUserTousers")
+  events_events_creatorUserHandleTousers events[]  @relation("events_creatorUserHandleTousers")
+  messages_messages_handleReciverTousers messages? @relation("messages_handleReciverTousers")
+  messages_messages_handleSenderTousers  messages? @relation("messages_handleSenderTousers")
+  events_eventsTousers                   events[]
+  groups                                 groups[]  @relation("inGroup")
+}
