@@ -19,10 +19,10 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //middleware delle routes
-app.use("/", appRoutes);
-app.use("/user", userRoutes);
-app.use("/event", eventRoutes);
-app.use("/chat", chatRoutes);
+app.use("/api/", appRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/event", eventRoutes);
+app.use("/api/chat", chatRoutes);
 
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}/`);

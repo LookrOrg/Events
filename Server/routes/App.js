@@ -4,6 +4,6 @@ const indexController = require("../controllers/App")
 
 router.post("/login", indexController.login)
 router.post("/signup", indexController.signup)
-router.post("/checkHandle", indexController.checkHandle)
+router.post("/checkEmail", indexController.checkEmail)
 
 module.exports = router;
