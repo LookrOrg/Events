@@ -9,23 +9,27 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await prisma.users.findFirst({
+      select: {
+        handle: true,
+        email: true,
+        password: true,
+      },
       where: {
         email: email,
       },
     });
     if (user) {
-      const compareResult = bcrypt.compareSync(password, user.password);
-      if (compareResult) {
-        const jwt = jsonwebtoken.sign(user.id, process.env.TOKEN_SECRET);
+      if (bcrypt.compareSync(password, user.password)) {
+        const jwt = jsonwebtoken.sign(user.handle, process.env.TOKEN_SECRET);
         res.status(200).json(jwt);
       } else {
-        res.status(400).json({ error: "wrong password" });
+        res.status(500).json({ error: "wrong password" });
       }
     } else {
       res.status(404).json({ error: "user not found" });
     }
   } catch (error) {
-    res.status(500).json(error);
+    console.error(error);
   }
 };
 
@@ -59,7 +63,11 @@ const signup = async (req, res) => {
                 data: User,
               });
               if (newUser) {
-                res.status(200).json({ ok: "user created" });
+                const jwt = jsonwebtoken.sign(
+                  newUser.handle,
+                  process.env.TOKEN_SECRET
+                );
+                res.status(200).json(jwt);
               } else {
                 res
                   .status(500)
@@ -108,7 +116,6 @@ const checkEmail = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
 
 module.exports = {
   login,
