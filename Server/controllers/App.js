@@ -4,9 +4,10 @@ const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const { validate } = require("email-validator");
 const jsonwebtoken = require("jsonwebtoken");
+const TOKEN_SECRET = process.env.TOKEN_SECRET;
 
-const login = async (req, res) => {
-  const { email, password } = req.body;
+const login = async (request, response) => {
+  const { email, password } = request.body;
   try {
     const user = await prisma.users.findFirst({
       select: {
@@ -20,21 +21,21 @@ const login = async (req, res) => {
     });
     if (user) {
       if (bcrypt.compareSync(password, user.password)) {
-        const jwt = jsonwebtoken.sign(user.handle, process.env.TOKEN_SECRET);
-        res.status(200).json(jwt);
+        const jwt = jsonwebtoken.sign(user.handle, TOKEN_SECRET);
+        response.status(200).json(jwt);
       } else {
-        res.status(500).json({ error: "wrong password" });
+        response.status(500).json({ error: "wrong password" });
       }
     } else {
-      res.status(404).json({ error: "user not found" });
+      response.status(404).json({ error: "user not found" });
     }
   } catch (error) {
     console.error(error);
   }
 };
 
-const signup = async (req, res) => {
-  const user = req.body;
+const signup = async (request, response) => {
+  const user = request.body;
   try {
     //controllo la password
     if (validate(user.email)) {
@@ -42,6 +43,7 @@ const signup = async (req, res) => {
       const checkUser = await prisma.users.findFirst({
         where: {
           email: user.email,
+          handle: user.handle
         },
       });
       //se non esiste continuo
@@ -56,48 +58,46 @@ const signup = async (req, res) => {
             //cripto la password
             const hash = bcrypt.hashSync(user.password, 10);
             user.password = hash;
-            const { confirmPassword, ...User } = user;
             //creo l'utente nel db
             try {
+              const { confirmPassword, ...User } = user;
+              console.log(User);
               const newUser = await prisma.users.create({
                 data: User,
               });
               if (newUser) {
-                const jwt = jsonwebtoken.sign(
-                  newUser.handle,
-                  process.env.TOKEN_SECRET
-                );
-                res.status(200).json(jwt);
+                const jwt = jsonwebtoken.sign(newUser.handle, TOKEN_SECRET);
+                response.status(200).json(jwt);
               } else {
-                res
+                response
                   .status(500)
                   .json({ error: "user not created, error in the server" });
               }
             } catch (error) {
               console.error(error);
-              res.status(500).json({ error: "Internal server error" });
+              response.status(500).json({ error: "Internal server error" });
             }
           } else {
-            res.status(400).json({
+            response.status(400).json({
               error: "the password doesn't match the required parameter",
             });
           }
         } else {
-          res.status(400).json({ error: "password are different" });
+          response.status(400).json({ error: "password are different" });
         }
       } else {
-        res.status(400).json({ error: "user already exist" });
+        response.status(400).json({ error: "user already exist" });
       }
     } else {
-      res.status(400).json({ error: "email is invalid" });
+      response.status(400).json({ error: "email is invalid" });
     }
   } catch (error) {
-    res.status(500).json(error);
+    response.status(500).json(error);
   }
 };
 
-const checkEmail = async (req, res) => {
-  const { email } = req.body;
+const checkEmail = async (request, response) => {
+  const { email } = request.body;
   try {
     const allEmail = await prisma.users.findFirst({
       select: {
@@ -107,18 +107,44 @@ const checkEmail = async (req, res) => {
         email: email,
       },
     });
+
+    console.log(allEmail, email);
     if (!allEmail) {
-      res.status(200).json({ result: "No email found" });
+      response.status(200).json({ result: "No email found" });
     } else {
-      res.status(400).json({ error: "email already taken" });
+      response.status(400).json({ error: "email already taken" });
     }
   } catch (error) {
-    res.status(500).json(error);
+  response.status(500).json(error);
   }
 };
+
+const checkHandle = async (request, response) => {
+  const { handle } = request.body;
+  try {
+    const user = await prisma.users.findFirst({
+      where: {
+        handle: handle
+      },
+      select:{
+        handle: true
+      }
+    });
+    if(!user){
+      response.status(200).json({value: "No user found"})
+    }else{
+      response.status(200).json(user)
+    }
+  } catch (error) {
+    console.error(error);
+    response.status(500).json(error)
+  }
+  
+}
 
 module.exports = {
   login,
   signup,
   checkEmail,
+  checkHandle
 };
