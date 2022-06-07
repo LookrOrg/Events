@@ -1,7 +1,8 @@
 import {StyleSheet} from 'react-native'
-export default styles = StyleSheet.create({
+export default StyleSheet.create({
     input: {
         witdh: "80%",
-        height: "40px"
+        height: "40px",
+        backgroundColor: "gray"
     }
 })
