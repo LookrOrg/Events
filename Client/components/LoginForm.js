@@ -20,7 +20,6 @@ export default function LoginForm() {
       <View>
         <Text>Log in</Text>
         <TextInput
-          style={styles.input}
           placeholder="example@gmail.com"
         ></TextInput>
       </View>
