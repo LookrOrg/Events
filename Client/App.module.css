@@ -1,0 +1,10 @@
+:root {
+  --gray-light: #efefef;
+}
+
+.input {
+  width: 80%;
+  height: 50px;
+  background-color: var(--gray-light);
+  padding: 20px;
+}
