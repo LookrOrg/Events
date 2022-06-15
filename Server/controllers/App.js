@@ -97,49 +97,55 @@ const signup = async (request, response) => {
 };
 
 const checkEmail = async (request, response) => {
-  const { email } = request.body;
-  try {
-    const allEmail = await prisma.users.findFirst({
-      select: {
-        email: true,
-      },
-      where: {
-        email: email,
-      },
-    });
-
-    console.log(allEmail, email);
-    if (!allEmail) {
-      response.status(200).json({ result: "No email found" });
-    } else {
-      response.status(400).json({ error: "email already taken" });
+  const { email } = request.query;
+  if(!email) {
+    response.status(400).json({error: "email query not found"})
+  }else{
+    try {
+      const allEmail = await prisma.users.findFirst({
+        select: {
+          email: true,
+        },
+        where: {
+          email: email,
+        },
+      });
+      if (!allEmail) {
+        response.status(200).json({ result: "No email found" });
+      } else {
+        response.status(200).json({ error: "email already taken" });
+      }
+    } catch (error) {
+    response.status(500).json(error);
     }
-  } catch (error) {
-  response.status(500).json(error);
   }
+ 
 };
 
 const checkHandle = async (request, response) => {
-  const { handle } = request.body;
-  try {
-    const user = await prisma.users.findFirst({
-      where: {
-        handle: handle
-      },
-      select:{
-        handle: true
+  const { handle } = request.query;
+  if(!handle){
+    response.status(400).json({error: "handle query not found!"})
+  }else{
+    try {
+      const user = await prisma.users.findFirst({
+        where: {
+          handle: handle
+        },
+        select:{
+          handle: true
+        }
+      });
+      if(!user){
+        response.status(200).json({value: "No user found"})
+      }else{
+        response.status(200).json(user)
       }
-    });
-    if(!user){
-      response.status(200).json({value: "No user found"})
-    }else{
-      response.status(200).json(user)
+    } catch (error) {
+      console.error(error);
+      response.status(500).json(error)
     }
-  } catch (error) {
-    console.error(error);
-    response.status(500).json(error)
   }
-  
 }
 
 module.exports = {
