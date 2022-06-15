@@ -20,7 +20,10 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationAlwaysUsageDescription": "This app uses location to suggest social events based on the user's geolocation"
+      }
     },
     "android": {
       "adaptiveIcon": {

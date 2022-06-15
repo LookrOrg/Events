@@ -1,25 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  value: 0,
+  handle: "",
+  name: "",
+  surname: "",
+  email: "",
+  phone: "",
+  creationDate: "",
+  image: "",
+  rating: "",
+  loading: false,
+  authenticated: false
 }
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1
-    },
-    decrement: (state) => {
-      state.value -= 1
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload
+    getUserDetails: (state, action) => {
+      
     },
   },
 })
 
-export const { increment, decrement, incrementByAmount } = userSlice.actions
+export const { getUserDetails } = userSlice.actions
 
 export default userSlice.reducer

@@ -7,7 +7,31 @@ export const dataApi = createApi({
     getPosts: builder.query({
       query: (coords) => `posts?lat=${coords.lat}&lon=${coords.lon}`,
     }),
+    postLogin: builder.query({
+      query: (credentials) => ({
+        url: "login",
+        method: "POST",
+        body: credentials,
+      }),
+    }),
+    postRegister: builder.query({
+      query: (user) => ({
+        url: "signup",
+        method: "POST",
+        body: user,
+      }),
+    }),
+    getCheckMail: builder.query({
+      query: (email) => ({
+        url: `checkEmail?email=${email}`,
+      }),
+    }),
   }),
 });
 
-export const { useGetPostsQuery } = dataApi;
+export const {
+  useGetPostsQuery,
+  usePostLoginQuery,
+  usePostRegisterQuery,
+  useGetCheckMailQuery,
+} = dataApi;

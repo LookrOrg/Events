@@ -29,7 +29,8 @@
     "react-native-paper": "^4.12.1",
     "react-native-postcss-transformer": "^1.2.4",
     "react-native-web": "0.17.7",
-    "react-redux": "^8.0.2"
+    "react-redux": "^8.0.2",
+    "expo-location": "~14.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
