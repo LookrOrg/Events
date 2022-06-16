@@ -37,7 +37,55 @@ const getUserByHandle = async (request, response) => {
     }
   }
 };
+
+const addRating = async (request, response) => {
+  const { handle } = request.user;
+  let { rating } = request.user;
+  if (rating >= 10)
+    response.status(200).json({ error: "user has already max rating" });
+  else {
+    try {
+      const updatedUser = await prisma.users.update({
+        where: {
+          handle: handle,
+        },
+        data: {
+          rating: ++rating,
+        },
+      });
+      response.status(200).json(updatedUser);
+    } catch (error) {
+      console.error(error);
+      response.status(500).json({ error: error });
+    }
+  }
+};
+
+const removeRating = async (request, response) => {
+    const { handle } = request.user;
+  let { rating } = request.user;
+  if (rating <= 0)
+    response.status(200).json({ error: "user has already the minimum rating" });
+  else {
+    try {
+      const updatedUser = await prisma.users.update({
+        where: {
+          handle: handle,
+        },
+        data: {
+          rating: --rating,
+        },
+      });
+      response.status(200).json(updatedUser);
+    } catch (error) {
+      console.error(error);
+      response.status(500).json({ error: error });
+    }
+  }
+}
 module.exports = {
   getUserAuth,
   getUserByHandle,
+  addRating,
+  removeRating
 };
