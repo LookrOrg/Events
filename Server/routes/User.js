@@ -7,5 +7,7 @@ router.use(auth)
 
 //restituisce utente loggato
 router.get("/", userController.getUserAuth)
-router.get("/user/:handle")
+
+//restituisce un utente dato l'handle
+router.get("/:handle", userController.getUserByHandle)
 module.exports = router;
