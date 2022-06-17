@@ -24,7 +24,7 @@ const login = async (request, response) => {
         const jwt = jsonwebtoken.sign(user.handle, TOKEN_SECRET);
         response.status(200).json(jwt);
       } else {
-        response.status(500).json({ error: "wrong password" });
+        response.status(400).json({ error: "wrong password" });
       }
     } else {
       response.status(404).json({ error: "user not found" });
@@ -61,7 +61,6 @@ const signup = async (request, response) => {
             //creo l'utente nel db
             try {
               const { confirmPassword, ...User } = user;
-              console.log(User);
               const newUser = await prisma.users.create({
                 data: User,
               });
