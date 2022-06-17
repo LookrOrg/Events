@@ -111,7 +111,7 @@ const checkEmail = async (request, response) => {
         },
       });
       if (!allEmail) {
-        response.status(200).json({ result: "No email found" });
+        response.status(404).json({ result: "No email found" });
       } else {
         response.status(200).json({ error: "email already taken" });
       }
