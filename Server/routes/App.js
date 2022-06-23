@@ -4,7 +4,7 @@ const indexController = require("../controllers/App")
 
 /**
  * @swagger
- * /checkEmail:
+ * /api/checkEmail:
  *   get:
  *     summary: controlla se esiste o no l'email
  *     parameters:
@@ -37,6 +37,42 @@ const indexController = require("../controllers/App")
  *                   example: email already taken
  */ 
 router.get("/checkEmail", indexController.checkEmail)
+
+/**
+ * @swagger
+ * /api/checkHandle:
+ *   get:
+ *     summary: check if a handle exist
+ *     parameters:
+ *       - in: query
+ *         required: true
+ *         name: handle
+ *         schema:
+ *           type: string
+ *         description: this is the handle of the user, the handle start with the '@'
+ *         example: '@testHandle'
+ *     responses:
+ *       200:
+ *         description: the user already exist, the user profile is returned
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: user found!
+ *       404:
+ *         description: no user found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: string
+ *                   example: user not found!    
+ */
 router.get("/checkHandle", indexController.checkHandle)
 
 /**

@@ -136,9 +136,9 @@ const checkHandle = async (request, response) => {
         }
       });
       if(!user){
-        response.status(200).json({value: "No user found"})
+        response.status(404).json({result: "No user found"})
       }else{
-        response.status(200).json(user)
+        response.status(200).json({result: "User founded"})
       }
     } catch (error) {
       console.error(error);
