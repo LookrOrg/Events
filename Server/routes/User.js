@@ -16,4 +16,7 @@ router.put("/addRating", userController.addRating)
 
 //diminuisce il rating
 router.put("/removeRating", userController.removeRating)
+
+//cambia le informazioni dell'utente
+router.put("/change", userController.changeUserInfo)
 module.exports = router;

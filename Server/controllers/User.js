@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+const { validate } = require("email-validator");
 const prisma = new PrismaClient();
 
 const getUserAuth = async (request, response) => {
@@ -62,7 +63,7 @@ const addRating = async (request, response) => {
 };
 
 const removeRating = async (request, response) => {
-    const { handle } = request.user;
+  const { handle } = request.user;
   let { rating } = request.user;
   if (rating <= 0)
     response.status(200).json({ error: "user has already the minimum rating" });
@@ -83,9 +84,48 @@ const removeRating = async (request, response) => {
     }
   }
 }
+
+//TODO: image: aggiungi la questione per firebase
+const changeUserInfo = async (request, response) => {
+  const { handle } = request.user;
+  const { email, password, phone, image} = request.body;
+  let newData = {};
+  let problem = [];
+  if(email) {
+    if(validate(email)){
+      newData.email = email;
+    }else{
+      problem.push("Email non valida");
+    }
+  }
+  if(password){ 
+    const regex = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
+    if(regex.exec(password)){
+      newData.password = password;
+    }else{
+      problem.push("Password non rispetta i parametri richiesti");
+    }
+  }
+  if(phone) newData.phone = phone;
+  if(image) newData.image = image;
+  try {
+    const updatedUser = await prisma.users.update({
+      data: newData,
+      where:{
+        handle: handle
+      }
+    })
+    response.status(200).json({updatedUser, problem})
+  } catch (error) {
+    console.error(error);
+    response.status(500).json(error)
+  }
+}
+
 module.exports = {
   getUserAuth,
   getUserByHandle,
   addRating,
-  removeRating
+  removeRating,
+  changeUserInfo
 };
