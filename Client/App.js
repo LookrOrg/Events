@@ -5,8 +5,6 @@ import LoginForm from "./components/LoginForm.js";
 import * as SecureStore from "expo-secure-store";
 import { QueryClient, QueryClientProvider } from "react-query";
 
-import { getTodos, postTodo } from "../my-api";
-
 SecureStore.getItemAsync("lookertoken").then((token) => {
   if (!token) return;
   console.log("test");
