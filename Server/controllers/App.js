@@ -96,9 +96,6 @@ const signup = async (request, response) => {
 };
 
 const checkEmail = async (request, response) => {
-  const { email } = request.query;
-  const bucket  = require('../utils/firebase')
-  console.log(bucket);
   if(!email) {
     response.status(400).json({error: "email query not found"})
   }else{

@@ -83,49 +83,70 @@ const removeRating = async (request, response) => {
       response.status(500).json({ error: error });
     }
   }
-}
+};
 
 //TODO: image: aggiungi la questione per firebase
 const changeUserInfo = async (request, response) => {
   const { handle } = request.user;
-  const { email, password, phone, image} = request.body;
+  const { email, password, phone, image } = request.body;
   let newData = {};
   let problem = [];
-  if(email) {
-    if(validate(email)){
+  if (email) {
+    if (validate(email)) {
       newData.email = email;
-    }else{
+    } else {
       problem.push("Email non valida");
     }
   }
-  if(password){ 
-    const regex = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
-    if(regex.exec(password)){
+  if (password) {
+    const regex = new RegExp(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+    );
+    if (regex.exec(password)) {
       newData.password = password;
-    }else{
+    } else {
       problem.push("Password non rispetta i parametri richiesti");
     }
   }
-  if(phone) newData.phone = phone;
-  if(image) newData.image = image;
+  if (phone) newData.phone = phone;
+  if (image) newData.image = image;
   try {
     const updatedUser = await prisma.users.update({
       data: newData,
-      where:{
-        handle: handle
-      }
-    })
-    response.status(200).json({updatedUser, problem})
+      where: {
+        handle: handle,
+      },
+    });
+    response.status(200).json({ updatedUser, problem });
   } catch (error) {
     console.error(error);
-    response.status(500).json(error)
+    response.status(500).json(error);
   }
-}
+};
 
+const uploadImage = async (request, response) => {
+  if (!request.file) response.status(404).json({ error: "Photo not found!" });
+  else {
+    const file = request.file;
+    console.log(file);
+    const bucket = require("../utils/firebase");
+    try {
+      const imageName = request.user.handle + "_" + file.filename;
+      await bucket.upload(file.path, {
+        destination: imageName
+      });
+      response.status(200).json({ ok: "ok" });
+    } catch (error) {
+      console.error(error);
+      response.status(500).json(error);
+    }
+  }
+};
 module.exports = {
   getUserAuth,
   getUserByHandle,
   addRating,
   removeRating,
-  changeUserInfo
+  changeUserInfo,
+  uploadImage,
 };

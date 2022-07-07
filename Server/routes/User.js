@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/User");
 const auth = require("../utils/Auth")
+const multer = require('multer')
+const upload = multer({dest: "uploads/"});
 
 router.use(auth)
 
@@ -19,4 +21,6 @@ router.put("/removeRating", userController.removeRating)
 
 //cambia le informazioni dell'utente
 router.put("/change", userController.changeUserInfo)
+
+router.put('/uploadImage', upload.single('foto'), userController.uploadImage)
 module.exports = router;
