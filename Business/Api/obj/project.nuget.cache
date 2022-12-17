@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WVIPQQ3oALaXInVGvOK51EAZwgoGuh0FFQq9m+d3p1wuNlwEPe6hyTa5ISCcaV1ld4eFxFg6Lrrw1rld2n/ebg==",
+  "dgSpecHash": "H60aYPd13ETPjbdMes1klI3Q7VYUS8PmYE44LKBdLn1s5Pg8Lfy0u/RiMEsat5m/vpk+NcqjyA8p5W6O2wyx3A==",
   "success": true,
-  "projectFilePath": "E:\\Progetti Git\\Events\\Business\\Business.csproj",
+  "projectFilePath": "E:\\Progetti Git\\Events\\Business\\Api\\Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lucid\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\lucid\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Progetti Git\\Events\\Business\\Business.csproj": {}
+    "E:\\Progetti Git\\Events\\Business\\Api\\Api.csproj": {}
   },
   "projects": {
-    "E:\\Progetti Git\\Events\\Business\\Business.csproj": {
+    "E:\\Progetti Git\\Events\\Business\\Api\\Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Progetti Git\\Events\\Business\\Business.csproj",
-        "projectName": "Business",
-        "projectPath": "E:\\Progetti Git\\Events\\Business\\Business.csproj",
+        "projectUniqueName": "E:\\Progetti Git\\Events\\Business\\Api\\Api.csproj",
+        "projectName": "Api",
+        "projectPath": "E:\\Progetti Git\\Events\\Business\\Api\\Api.csproj",
         "packagesPath": "C:\\Users\\lucid\\.nuget\\packages\\",
-        "outputPath": "E:\\Progetti Git\\Events\\Business\\obj\\",
+        "outputPath": "E:\\Progetti Git\\Events\\Business\\Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
