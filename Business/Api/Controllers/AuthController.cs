@@ -29,6 +29,12 @@ namespace Api.Controllers
             return Ok(new {token, user});
         }
 
+        [HttpPost("register")]
+        public async Task<IActionResult> Register()
+        {
+            
+            return Ok();
+        }
         [Authorize]
         [HttpGet]
         public IActionResult test()
