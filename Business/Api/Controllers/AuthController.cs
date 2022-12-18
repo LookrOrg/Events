@@ -1,6 +1,7 @@
 using Api.DTO.Auth;
 using Infrastructure.Interface;
 using Infrastructure.Interface.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -28,6 +29,13 @@ namespace Api.Controllers
             return Ok(new {token, user});
         }
 
+        [Authorize]
+        [HttpGet]
+        public IActionResult test()
+        {
+            var user = HttpContext.User.Claims.ToList().Find(claim => claim.Type.Equals("UserId"));
+            return Ok(user.ToString());
+        }
         /// <summary>
         /// Questo metodo permette di controllare se email e password sono presenti
         /// </summary>

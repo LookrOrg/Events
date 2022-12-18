@@ -13,3 +13,5 @@ E:\Progetti Git\Events\Business\Infrastructure\obj\Debug\net6.0\Infrastructure.d
 E:\Progetti Git\Events\Business\Infrastructure\obj\Debug\net6.0\refint\Infrastructure.dll
 E:\Progetti Git\Events\Business\Infrastructure\obj\Debug\net6.0\Infrastructure.pdb
 E:\Progetti Git\Events\Business\Infrastructure\obj\Debug\net6.0\ref\Infrastructure.dll
+E:\Progetti Git\Events\Business\Infrastructure\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+E:\Progetti Git\Events\Business\Infrastructure\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll

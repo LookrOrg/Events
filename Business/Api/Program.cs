@@ -1,4 +1,3 @@
-using System.Security.Cryptography;
 using System.Text;
 using Infrastructure.Interface;
 using Infrastructure.Interface.User;
@@ -25,7 +24,7 @@ builder.Services.AddSingleton<IUserRepository, UserRepository>();
 
 //JWT
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, option =>
+    .AddJwtBearer(option =>
     {
         option.SaveToken = true;
         option.TokenValidationParameters = new TokenValidationParameters

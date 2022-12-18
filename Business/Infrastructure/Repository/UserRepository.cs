@@ -1,21 +1,30 @@
 ﻿using Domain.Entity;
 using Infrastructure.Interface.User;
+using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 
 namespace Infrastructure.Repository;
 
 public class UserRepository : IUserRepository
 {
+    private readonly IConfiguration Configuration;
+
+
+    public UserRepository(IConfiguration configuration)
+    {
+        Configuration = configuration;
+    }
+
     public async Task<User> GetUserByEmail(string email, string password)
     {
         try
         {
             var connectionString = new MySqlConnectionStringBuilder()
             {
-                Database = "events",
-                UserID = "root",
-                Password = "admin",
-                Server = "localhost"
+                Server = Configuration["ConnectionStrings:Server"],
+                Database = Configuration["ConnectionStrings:Database"],
+                UserID = Configuration["ConnectionStrings:UserID"],
+                Password = Configuration["ConnectionStrings:Password"],
             };
 
             await using var connection = new MySqlConnection(connectionString.ToString());
@@ -32,7 +41,7 @@ public class UserRepository : IUserRepository
             while (await reader.ReadAsync())
             {
                 if (reader.GetInt32(9) != 1) return null;
-                if (!BCrypt.Net.BCrypt.EnhancedVerify(password, reader.GetString(5))) return null;
+                //if (!BCrypt.Net.BCrypt.EnhancedVerify(password, reader.GetString(5))) return null;
                 var user = new User
                 {
                     id = Guid.Parse(reader.GetString(0)),
