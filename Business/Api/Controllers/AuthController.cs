@@ -12,6 +12,7 @@ namespace Api.Controllers
     {
         private readonly IJwtService _jwtService;
         private readonly IUserService _userService;
+
         public AuthController(IJwtService jwtService, IUserService userService)
         {
             _jwtService = jwtService;
@@ -26,15 +27,23 @@ namespace Api.Controllers
             var user = await _userService.GetUserWithEmail(userDto.email, userDto.password);
             if (user == null) return NotFound("Errore nel prendere i dati dell'utente");
             var token = _jwtService.GenerateToken(user.id);
-            return Ok(new {token, user});
+            return Ok(new { token, user });
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register()
+        public async Task<IActionResult> Register(RegisterDto registerDto)
         {
-            
-            return Ok();
+            var result = CheckEmailAndPassword(registerDto.email, registerDto.password);
+            if (!result) return BadRequest("Email o Password mancanti!");
+            var userIp = HttpContext.Connection.RemoteIpAddress.ToString();
+            var user = await _userService.CreateUser(registerDto.name, registerDto.lastName, registerDto.email,
+                registerDto.password, registerDto.phone, userIp, registerDto.handle);
+            if (user == null) return BadRequest("Errore nella creazione dell'utente!");
+            var token = _jwtService.GenerateToken(user.id);
+            return Ok(new { user, token});
         }
+
+
         [Authorize]
         [HttpGet]
         public IActionResult test()
@@ -42,6 +51,7 @@ namespace Api.Controllers
             var user = HttpContext.User.Claims.ToList().Find(claim => claim.Type.Equals("UserId"));
             return Ok(user.ToString());
         }
+
         /// <summary>
         /// Questo metodo permette di controllare se email e password sono presenti
         /// </summary>
