@@ -251,3 +251,5 @@ E:\Progetti Git\Events\Business\Api\obj\Debug\net6.0\refint\Api.dll
 E:\Progetti Git\Events\Business\Api\obj\Debug\net6.0\Api.pdb
 E:\Progetti Git\Events\Business\Api\obj\Debug\net6.0\Api.genruntimeconfig.cache
 E:\Progetti Git\Events\Business\Api\obj\Debug\net6.0\ref\Api.dll
+E:\Progetti Git\Events\Business\Api\bin\Debug\net6.0\BCrypt.Net-Next.dll
+E:\Progetti Git\Events\Business\Api\bin\Debug\net6.0\MySqlConnector.dll

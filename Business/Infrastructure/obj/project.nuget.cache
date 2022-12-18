@@ -1,13 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "nM/sJjQmr1XP5MOfE4FUoR2nFNh3jrZV+rpW+5/fB5x3SQCT95ZFccbDOXLIgIzGOBaXX7RyyEr+Bfi9+ip4/g==",
+  "dgSpecHash": "sIK1enRc/g3vMDwpuwKlT9o3FH7/jIxNaKJqpmxPLy120nm2jL+4ZpxZ7lV8yR/UoIQN/T1rEgg2b3sk6ZU2lg==",
   "success": true,
   "projectFilePath": "E:\\Progetti Git\\Events\\Business\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\lucid\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\lucid\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\lucid\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\6.10.0\\microsoft.identitymodel.jsonwebtokens.6.10.0.nupkg.sha512",
     "C:\\Users\\lucid\\.nuget\\packages\\microsoft.identitymodel.logging\\6.10.0\\microsoft.identitymodel.logging.6.10.0.nupkg.sha512",
     "C:\\Users\\lucid\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.10.0\\microsoft.identitymodel.tokens.6.10.0.nupkg.sha512",
+    "C:\\Users\\lucid\\.nuget\\packages\\mysqlconnector\\2.2.2\\mysqlconnector.2.2.2.nupkg.sha512",
     "C:\\Users\\lucid\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.10.0\\system.identitymodel.tokens.jwt.6.10.0.nupkg.sha512",
     "C:\\Users\\lucid\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512"
   ],

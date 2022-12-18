@@ -17,11 +17,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //DI SERVICE
-//builder.Services.AddSingleton<IUserService, IUserService>();
+builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddSingleton<IJwtService, JwtService>();
 
 //DI Repository
-//builder.Services.AddSingleton<IUserRepository, UserRepository>();
+builder.Services.AddSingleton<IUserRepository, UserRepository>();
 
 //JWT
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -41,7 +41,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateLifetime = true,
         };
     });
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

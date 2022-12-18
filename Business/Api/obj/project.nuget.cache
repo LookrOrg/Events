@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "n/PHleT9R2uB/v7tos3pyT/FtwBNxhDmDiDgtgol0NjInr0LK5PmBbhZlSfIyXYPEOzZIvUHM0clAtwq+z2dTw==",
+  "dgSpecHash": "YWejO/w7HiWwxz8S3lUHWnFlYlSwW/DLG6RLer7nIYGSj2BGAGz1kLw2eRlnDcPbF0h1QAgD56ZG2LcBER05og==",
   "success": true,
   "projectFilePath": "E:\\Progetti Git\\Events\\Business\\Api\\Api.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\lucid\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\lucid\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",
     "C:\\Users\\lucid\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\lucid\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
@@ -53,6 +54,7 @@
     "C:\\Users\\lucid\\.nuget\\packages\\microsoft.visualstudio.web.codegenerators.mvc\\6.0.11\\microsoft.visualstudio.web.codegenerators.mvc.6.0.11.nupkg.sha512",
     "C:\\Users\\lucid\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\lucid\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\lucid\\.nuget\\packages\\mysqlconnector\\2.2.2\\mysqlconnector.2.2.2.nupkg.sha512",
     "C:\\Users\\lucid\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Users\\lucid\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\lucid\\.nuget\\packages\\nuget.common\\6.3.1\\nuget.common.6.3.1.nupkg.sha512",

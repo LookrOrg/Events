@@ -106,9 +106,17 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
             "Microsoft.IdentityModel.JsonWebTokens": {
               "target": "Package",
               "version": "[6.10.0, )"
+            },
+            "MySqlConnector": {
+              "target": "Package",
+              "version": "[2.2.2, )"
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
