@@ -17,6 +17,12 @@ public class UserService: IUserService
         return await _userRepository.GetUserByEmail(email, password);
     }
 
+    public async Task<User> GetUserWithUserId(string userId, string ip)
+    {
+        var user = await _userRepository.GetUserByUserId(userId, ip);
+        return user;
+    }
+
     public async Task<User> CreateUser(string name, string lastName, string email, string password, string phone, string ip, string? handle = null)
     {
         if (handle == null) handle = "@" + name[0] + lastName[0];

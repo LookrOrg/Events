@@ -72,6 +72,40 @@ public class UserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
+    public async Task<User> GetUserByUserId(string userId, string ip)
+    {
+        try
+        {
+            await using var connection = new MySqlConnection(connectionString.ToString());
+            await connection.OpenAsync();
+            var query = $"SELECT Count(*), * FROM users WHERE id = '{userId}'";
+            await using var command = new MySqlCommand(query, connection);
+            await using var reader = await command.ExecuteReaderAsync();
+            if (!reader.HasRows) return null;
+            if (reader.GetInt32(0) != 1) return null;
+            while (await reader.ReadAsync())
+            {
+                return new User()
+                {
+                    id = Guid.Parse(reader.GetString(1)),
+                    handle = reader.GetString(2),
+                    name = reader.GetString(3),
+                    lastName = reader.GetString(4),
+                    email = reader.GetString(5),
+                    phone = reader.GetString(7),
+                    roleId = reader.GetString(8)
+                };
+            }
+
+            return null;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
     public Task<User> GetUser(Guid id)
     {
         throw new NotImplementedException();
