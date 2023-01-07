@@ -24,7 +24,7 @@ namespace Api.Controllers
         {
             var result = CheckEmailAndPassword(userDto.email, userDto.password);
             if (!result) return BadRequest("Email o Password mancanti!");
-            var user = await _userService.GetUserWithEmail(userDto.email, userDto.password);
+            var user = await _userService.GetUserByEmail(userDto.email, userDto.password);
             if (user == null) return NotFound("Errore nel prendere i dati dell'utente");
             var token = _jwtService.GenerateToken(user.id);
             return Ok(new { token, user });
@@ -35,7 +35,7 @@ namespace Api.Controllers
         {
             var result = CheckEmailAndPassword(registerDto.email, registerDto.password);
             if (!result) return BadRequest("Email o Password mancanti!");
-            var userIp = HttpContext.Connection.RemoteIpAddress.ToString();
+            var userIp = HttpContext.Connection.RemoteIpAddress!.ToString();
             var user = await _userService.CreateUser(registerDto.name, registerDto.lastName, registerDto.email,
                 registerDto.password, registerDto.phone, userIp, registerDto.handle);
             if (user == null) return BadRequest("Errore nella creazione dell'utente!");
